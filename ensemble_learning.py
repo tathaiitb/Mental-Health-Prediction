@@ -32,8 +32,8 @@ def cv_score_cal(model, x_data, y_data, cv_fold,model_name):
 
 
 def recall_precision(y_true, y_pred, model_name):
-    print(model_name, " recall : ", recall_score(ytest, random_forest_classifier.predict(X_test)))
-    print(model_name, " precision : ", precision_score(ytest, random_forest_classifier.predict(X_test)))
+    print(model_name, " recall : ", recall_score(ytest,y_pred))
+    print(model_name, " precision : ", precision_score(ytest, y_pred))
 
 import sys
 import numpy
