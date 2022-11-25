@@ -9,6 +9,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, accuracy_score,f1_score,precision_score, recall_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
 from sklearn.ensemble import RandomForestRegressor, AdaBoostClassifier, GradientBoostingClassifier, \
     RandomForestClassifier, StackingClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -34,6 +35,7 @@ def cv_score_cal(model, x_data, y_data, cv_fold,model_name):
 def recall_precision(y_true, y_pred, model_name):
     print(model_name, " recall : ", recall_score(ytest,y_pred))
     print(model_name, " precision : ", precision_score(ytest, y_pred))
+
 
 import sys
 import numpy
@@ -89,6 +91,7 @@ print("RandomForest Test Accuracy: ", accuracy_score(ytest,random_forest_classif
 print("RandomForest F1 score: ",f1_score(ytest,random_forest_classifier.predict(X_test) , average='macro'))
 cv_score_cal(random_forest_classifier, X_train, y_train, cv_fold =5, model_name="Random Forest Cross Validation")
 recall_precision(ytest, random_forest_classifier.predict(X_test),"random Forest")
+print(confusion_matrix(y_true=ytest, y_pred=random_forest_classifier.predict(X_test)))
 #
 #
 #Adaboost
@@ -101,6 +104,8 @@ y_pred = ada_boot_classifier.predict(X_test)
 print("Adaboost F1 score: ",f1_score(ytest, y_pred, average='macro'))
 cv_score_cal(ada_boot_classifier, X_total, y_total, cv_fold =5, model_name="Adaboost Cross Validation")
 recall_precision(ytest, ada_boot_classifier.predict(X_test),"Adaboost ")
+print(confusion_matrix(y_true=ytest, y_pred=ada_boot_classifier.predict(X_test)))
+
 #
 # #GradientBoost
 gradient_boost_classifier = GradientBoostingClassifier(subsample=0.8,random_state=40)
@@ -111,6 +116,8 @@ y_pred = gradient_boost_classifier.predict(X_test)
 print("Gradient F1 score: ",f1_score(ytest, y_pred, average='macro'))
 cv_score_cal(gradient_boost_classifier, X_total, y_total, cv_fold =5, model_name="Gradient Boost Cross Validation")
 recall_precision(ytest, gradient_boost_classifier.predict(X_test),"Gradient boost")
+print(confusion_matrix(y_true=ytest, y_pred=gradient_boost_classifier.predict(X_test)))
+
 #
 # #XGBoost
 xg_boost_classifier = XGBClassifier()
@@ -181,8 +188,8 @@ recall_precision(ytest, svm_classifier.predict(X_test),"SVM Classifier ")
 #
 # param_grid = [
 #     {
-#         'n_estimators': [3,10,30,50,100], 'max_features' : [2,4,6,8],
-#         'max_depth' : [1,2,3,4]
+#         'n_estimators': [5,10,70,50,100], 'max_features' : [2,4,6,10,12],
+#         'max_depth' : [2,3,4,5]
 #     }
 # ]
 # grid_random_forest = RandomForestClassifier()
